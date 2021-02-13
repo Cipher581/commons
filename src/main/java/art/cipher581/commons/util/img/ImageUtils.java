@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -297,5 +298,31 @@ public class ImageUtils {
 
 		return image;
 	}
+	
+	
+	public static int getMaxHeight(Collection<? extends BufferedImage> images) {
+        int max = 0;
+        
+        for (BufferedImage image : images) {
+            if (image.getHeight() > max) {
+                max = image.getHeight();
+            }
+        }
+        
+        return max;
+    }
+    
+    
+    public static int getMaxWidth(Collection<? extends BufferedImage> images) {
+        int max = 0;
+        
+        for (BufferedImage image : images) {
+            if (image.getWidth() > max) {
+                max = image.getWidth();
+            }
+        }
+        
+        return max;
+    }
 
 }
