@@ -47,7 +47,7 @@ public class StreamUtilities {
     }
 
 
-    public static String getMD5Hash(InputStream is) throws IOException, NoSuchAlgorithmException {
+    public static String getMD5HashAsString(InputStream is) throws IOException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
 
         byte[] buffer = new byte[8192];
@@ -61,6 +61,35 @@ public class StreamUtilities {
         String str = new HexBinaryAdapter().marshal(digested);
 
         return str;
+    }
+    
+    
+    public static byte[] getMD5Hash(InputStream is) throws IOException, NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+
+       return getHash(is, md);
+    }
+   
+    
+    public static byte[] getHash(InputStream is, MessageDigest md) throws IOException {
+        byte[] buffer = new byte[8192];
+        int read = 0;
+        while ((read = is.read(buffer)) >= 0) {
+            md.update(buffer, 0, read);
+        }
+
+        byte[] digested = md.digest();
+
+        
+
+        return digested;
+    }
+    
+    
+    public static byte[] getSha256Hash(InputStream is) throws IOException, NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        return getHash(is, md);
     }
 
 }
