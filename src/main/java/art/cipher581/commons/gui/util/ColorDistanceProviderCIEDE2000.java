@@ -3,8 +3,13 @@ package art.cipher581.commons.gui.util;
 
 import java.awt.Color;
 
+import org.openimaj.image.analysis.colour.CIEDE2000;
 
-public class ColorDistanceProviderCIE76 implements IColorDistanceProvider {
+
+public class ColorDistanceProviderCIEDE2000 implements IColorDistanceProvider {
+
+	
+	
 
 	/**
 	 * Computes the difference between two RGB colors by converting them to the L*a*b scale and
@@ -24,7 +29,7 @@ public class ColorDistanceProviderCIE76 implements IColorDistanceProvider {
 	    double[] lab1 = ColorUtilities.rgb2lab(r1, g1, b1);
 	    double[] lab2 = ColorUtilities.rgb2lab(r2, g2, b2);
 
-	    return Math.sqrt(Math.pow(lab2[0] - lab1[0], 2) + Math.pow(lab2[1] - lab1[1], 2) + Math.pow(lab2[2] - lab1[2], 2));
+	    return CIEDE2000.calculateDeltaE(lab1, lab2);
 	}
 
 }
